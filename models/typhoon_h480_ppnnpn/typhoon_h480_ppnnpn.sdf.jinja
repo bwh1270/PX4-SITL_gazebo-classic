@@ -328,6 +328,7 @@
       </physics>
     </joint>
 
+    <link name="cgo3_camera_optical_frame_link"></link>
     <link name="cgo3_camera_link">
       <inertial>
         <!-- place holder -->
@@ -403,6 +404,28 @@
         <always_on>1</always_on>
         <update_rate>50</update_rate>
         <visualize>true</visualize>
+
+        <!-- @brief adding the ROS camera plugin -->
+        <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+            <robotNamespace></robotNamespace>
+            <alwaysOn>true</alwaysOn>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <updateRate>50.0</updateRate>
+            <cameraName>cgo3_cam</cameraName>
+            <frameName>optical_frame</frameName>
+            <CxPrime>320.5</CxPrime>
+            <Cx>320.5</Cx>
+            <Cy>240.5</Cy>
+            <hackBaseline>0</hackBaseline>
+            <focalLength>277.191356</focalLength>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+        </plugin>
+
         <plugin name="GstCameraPlugin" filename="libgazebo_gst_camera_plugin.so">
             <robotNamespace></robotNamespace>
             <udpHost>127.0.0.1</udpHost>
@@ -421,6 +444,13 @@
         </plugin>
       </sensor>
     </link>
+
+    <joint name="cgo3_camera_optical_frame_joint" type="fixed">
+      <origin xyz='0 0 0' rpy='-3.141592/2 0 -3.141592/2'/>
+      <parent link='cgo3_camera_link'/>
+      <child link='cgo3_camera_optical_frame_link'/>
+    </joint>
+
     <joint name='cgo3_camera_joint' type='revolute'>
       <child>cgo3_camera_link</child>
       <parent>cgo3_horizontal_arm_link</parent>
