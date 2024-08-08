@@ -417,6 +417,14 @@
             <cam_component_id>{{ cam_component_id }}</cam_component_id>
             <mavlink_cam_udp_port>{{ mavlink_cam_udp_port }}</mavlink_cam_udp_port>
         </plugin>
+        <plugin name="gazebo_ros_camera" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30</updateRate>
+          <cameraName>gimbal_camera</cameraName>
+          <imageTopicName>/camera/image_raw</imageTopicName>
+          <cameraInfoTopicName>/camera/camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+      </plugin>
       </sensor>
     </link>
     <joint name='cgo3_camera_joint' type='revolute'>
